@@ -1,51 +1,79 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { NAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, COUNTRY, STATE, ADDRESS, CITY, ZIPCODE, 
   MOBILE_NUMBER, DOB_DAY, DOB_MONTH, DOB_YEAR} from './test-data';
 
-test('login user', async ({ page }) => {
+type ApiFixtures = {
+  createUserViaApi: void;
+  deleteUserViaApi: void;
+};
+
+export const test = base.extend<ApiFixtures>({
+  createUserViaApi: async ({ request }, use, testInfo) => {
+    if (testInfo.title === 'login user') {
+      const response = await request.post('https://automationexercise.com/api/createAccount', {
+        form: {
+          name: NAME,
+          email: EMAIL,
+          password: PASSWORD,
+          title: 'Mr',
+          birth_date: DOB_DAY,
+          birth_month: DOB_MONTH,
+          birth_year: DOB_YEAR,
+          firstname: FIRST_NAME,
+          lastname: LAST_NAME,
+          company: 'Test Company',
+          address1: ADDRESS,
+          address2: '',
+          country: COUNTRY,
+          zipcode: ZIPCODE,
+          state: STATE,
+          city: CITY,
+          mobile_number: MOBILE_NUMBER
+        }
+      });
+
+      const responseBody = await response.text();
+      console.log(`Create Account Response: ${responseBody}`);
+      
+      expect(response.status()).toBe(200);
+      expect(responseBody).toContain('User created!');
+    }
+    
+    await use();
+  },
+
+  deleteUserViaApi: async ({ request }, use, testInfo) => {
+    await use();
+
+    if (testInfo.title === 'login user') {
+      const response = await request.delete('https://automationexercise.com/api/deleteAccount', {
+        form: {
+          email: EMAIL,
+          password: PASSWORD
+        }
+      });
+
+      const responseBody = await response.text();
+      console.log(`Delete Account Response: ${responseBody}`);
+      
+      expect(response.status()).toBe(200);
+      expect(responseBody).toContain('Account deleted!');
+    }
+  }
+});
+
+
+test('login user', async ({ page, createUserViaApi, deleteUserViaApi }) => {
+    
     await page.goto('https://www.automationexercise.com/');
     await page.locator('[href="/login"]').click();  
-    await page.locator('[data-qa="signup-name"]').fill(NAME);
-    await page.locator('[data-qa="signup-email"]').fill(EMAIL);
-    await page.locator('[data-qa="signup-button"]').click();
-    await page.locator('#password').fill(PASSWORD);
-    await page.locator('#days').selectOption(DOB_DAY);
-    await page.locator('#months').selectOption(DOB_MONTH);
-    await page.locator('#years').selectOption(DOB_YEAR);
-    await page.locator('#first_name').fill(FIRST_NAME);
-    await page.locator('#last_name').fill(LAST_NAME); 
-    await page.locator('#address1').fill(ADDRESS);
-    await page.locator('#country').selectOption(COUNTRY);
-    await page.locator('#state').fill(STATE);
-    await page.locator('#city').fill(CITY);
-    await page.locator('#zipcode').fill(ZIPCODE);
-    await page.locator('#mobile_number').fill(MOBILE_NUMBER);
-    await page.locator('[data-qa="create-account"]').click();
-    await expect(page.locator('[data-qa="account-created"]')).toContainText('Account Created!');
-    await page.locator('[data-qa="continue-button"]').click();
-    await expect(page.locator('#header')).toContainText(`Logged in as ${NAME}`);
 
-
-    await page.locator('[href="/logout"]').click();
-
-    // Open site
-    await page.goto('https://www.automationexercise.com/');
-
-
-    // Go to login page
-    await page.locator('a[href="/login"]').click();
-
-    // Fill login form
     await page.locator('[data-qa="login-email"]').fill(EMAIL);
     await page.locator('[data-qa="login-password"]').fill(PASSWORD);
     await page.locator('[data-qa="login-button"]').click();
 
     
     await expect(page.locator('#header')).toContainText(`Logged in as ${NAME}`);
-
-    await page.locator('[href="/delete_account"]').click();
-    await expect(page.locator('[data-qa="account-deleted"]')).toContainText('Account Deleted!');
-    await page.locator('[data-qa="continue-button"]').click();
-    await expect(page.locator('[href="/login"]')).toContainText('Signup / Login');
-
 });
+
+export { expect };
