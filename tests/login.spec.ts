@@ -7,10 +7,10 @@ type ApiFixtures = {
   deleteUserViaApi: void;
 };
 
+
 export const test = base.extend<ApiFixtures>({
-  createUserViaApi: async ({ request }, use, testInfo) => {
-    if (testInfo.title === 'login user') {
-      const response = await request.post('https://automationexercise.com/api/createAccount', {
+  createUserViaApi: async ({ request }, use) => {
+      const response = await request.post('/api/createAccount', {
         form: {
           name: NAME,
           email: EMAIL,
@@ -32,42 +32,36 @@ export const test = base.extend<ApiFixtures>({
         }
       });
 
-      const responseBody = await response.text();
-      console.log(`Create Account Response: ${responseBody}`);
-      
+      const responseBody = await response.text();  
       expect(response.status()).toBe(200);
       expect(responseBody).toContain('User created!');
-    }
     
     await use();
   },
 
-  deleteUserViaApi: async ({ request }, use, testInfo) => {
+  deleteUserViaApi: async ({ request }, use) => {
     await use();
 
-    if (testInfo.title === 'login user') {
-      const response = await request.delete('https://automationexercise.com/api/deleteAccount', {
-        form: {
-          email: EMAIL,
-          password: PASSWORD
-        }
-      });
-
-      const responseBody = await response.text();
-      console.log(`Delete Account Response: ${responseBody}`);
-      
-      expect(response.status()).toBe(200);
-      expect(responseBody).toContain('Account deleted!');
+    const response = await request.delete('/api/deleteAccount', {
+    form: {
+        email: EMAIL,
+        password: PASSWORD
     }
-  }
-});
+    });
 
+    const responseBody = await response.text();
+
+    expect(response.status()).toBe(200);
+    expect(responseBody).toContain('Account deleted!');
+}
+}
+);
 
 test('login user', async ({ page, createUserViaApi, deleteUserViaApi }) => {
     
-    await page.goto('https://www.automationexercise.com/');
-    await page.locator('[href="/login"]').click();  
+    await page.goto('/');
 
+    await page.locator('[href="/login"]').click(); 
     await page.locator('[data-qa="login-email"]').fill(EMAIL);
     await page.locator('[data-qa="login-password"]').fill(PASSWORD);
     await page.locator('[data-qa="login-button"]').click();
