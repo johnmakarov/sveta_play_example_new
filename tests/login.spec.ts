@@ -8,6 +8,8 @@ type ApiFixtures = {
 };
 
 
+// https://playwright.dev/docs/pom
+
 export const test = base.extend<ApiFixtures>({
   createUserViaApi: async ({ request }, use) => {
       const response = await request.post('/api/createAccount', {
