@@ -7,7 +7,6 @@ type ApiFixtures = {
   deleteUserViaApi: void;
 };
 
-
 // https://playwright.dev/docs/pom
 
 export const test = base.extend<ApiFixtures>({
@@ -58,6 +57,7 @@ export const test = base.extend<ApiFixtures>({
 }
 }
 );
+
 
 test('login user', async ({ page, createUserViaApi, deleteUserViaApi }) => {
     
