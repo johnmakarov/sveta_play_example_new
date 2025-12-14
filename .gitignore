@@ -6,3 +6,4 @@ playwright/.cache/
 
 # ignoring the .idea folder
 .idea
+allure-results
