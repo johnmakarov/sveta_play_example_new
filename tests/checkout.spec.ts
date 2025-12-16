@@ -1,49 +1,37 @@
-// import { test, expect } from './login.spec';
-// import { EMAIL, PASSWORD } from './test-data';
-// import {
-//   ADDRESS,
-//   NAME_ON_CARD,
-//   CARD_NUMBER,
-//   CVC,
-//   EXPIRY_MONTH,
-//   EXPIRY_YEAR
-// } from './checkout-data';
+import {
+	CARD_NUMBER,
+	CVC,
+	EXPIRY_MONTH,
+	EXPIRY_YEAR,
+	NAME_ON_CARD,
+} from "./data/checkout-data";
+import { expect } from "@playwright/test";
+import { test } from "./tests";
 
-// test('checkout product', async ({ page, createUserViaApi, deleteUserViaApi }) => {
+import { EMAIL, PASSWORD, NAME } from "./data/test-data";
 
-//   await page.goto('/');
+test("checkout product", async ({
+	page,
+	createUserViaApi,
+	deleteUserViaApi,
+	loginPage,
+}) => {
+	await loginPage.login(EMAIL, PASSWORD);
+	await loginPage.verifySuccessfulLogin(NAME);
 
-//   await page.locator('a[href="/login"]').click();
-//   await page.locator('[data-qa="login-email"]').fill(EMAIL);
-//   await page.locator('[data-qa="login-password"]').fill(PASSWORD);
-//   await page.locator('[data-qa="login-button"]').click();
-
-//   await expect(page.locator('header')).toContainText('Logged in as');
-
-//   // Products
-//   await page.locator('a[href="/products"]').click();
-//   await expect(page.locator('h2')).toContainText('All Products');
-
-//   // Add product to cart
-//   await page.locator('.add-to-cart').first().click();
-//   await page.locator('button:has-text("Continue Shopping")').click();
-
-//   await page.locator('a[href="/view_cart"]').click();
-//   await expect(page.locator('.breadcrumbs')).toContainText('Shopping Cart');
-
-//   await page.locator('a:has-text("Proceed To Checkout")').click();
-
-//   await expect(page.locator('#address_delivery')).toContainText(ADDRESS);
-
-//   await page.locator('a:has-text("Place Order")').click();
-
-//   await page.locator('[data-qa="name-on-card"]').fill(NAME_ON_CARD);
-//   await page.locator('[data-qa="card-number"]').fill(CARD_NUMBER);
-//   await page.locator('[data-qa="cvc"]').fill(CVC);
-//   await page.locator('[data-qa="expiry-month"]').fill(EXPIRY_MONTH);
-//   await page.locator('[data-qa="expiry-year"]').fill(EXPIRY_YEAR);
-
-//   await page.locator('[data-qa="pay-button"]').click();
-
-//   await expect(page.locator('[data-qa="order-placed"]')).toContainText('Order Placed!');
-// });
+    // TODO: Need to be refactored
+    await page.locator('[href="/products"]').click();
+    await page.locator('[href="/product_details/1"]').click();
+    await page.waitForURL('**/product_details/1');
+    await page.locator('[class="btn btn-default cart"]').click()
+    await page.getByText('View Cart').click();
+    await page.locator('[class="btn btn-default check_out"]').click();
+    await page.locator('[href="/payment"]').click();
+    await page.locator('[name="name_on_card"]').fill(NAME_ON_CARD);
+    await page.locator('[data-qa="card-number"]').fill(CARD_NUMBER); 
+    await page.locator('[data-qa="cvc"]').fill(CVC);
+    await page.locator('[data-qa="expiry-month"]').fill(EXPIRY_MONTH);
+    await page.locator('[data-qa="expiry-year"]').fill(EXPIRY_YEAR);
+    await page.locator('#submit').click();
+    await expect(page.locator('[data-qa="order-placed"]')).toContainText('Order Placed!');
+});

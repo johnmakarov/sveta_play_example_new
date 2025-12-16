@@ -1,7 +1,9 @@
-export const NAME = "Georgy";
-export const FIRST_NAME = "Georgy";
-export const LAST_NAME = "Tester";
-export const EMAIL = "noname@emailtest.com";
+import { faker } from '@faker-js/faker';
+
+export const NAME = faker.person.firstName();
+export const FIRST_NAME = faker.person.firstName();
+export const LAST_NAME = faker.person.lastName();
+export const EMAIL = faker.internet.email()
 export const PASSWORD = "Test#123";
 export const TITLE = "Mr.";
 export const COMPANY = "Company";

@@ -18,7 +18,7 @@ import {
 	PASSWORD,
 	STATE,
 	ZIPCODE,
-} from "./test-data";
+} from "./data/test-data";
 
 type AllFixtures = ExercisePagesFixture & {
 	createUserViaApi: () => Promise<void>;

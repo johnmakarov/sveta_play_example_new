@@ -13,7 +13,7 @@ import {
 	PASSWORD,
 	STATE,
 	ZIPCODE,
-} from "./test-data";
+} from "./data/test-data";
 import { test } from "./tests";
 
 test("register user", async ({ registerPage, deleteUserViaApi }) => {
