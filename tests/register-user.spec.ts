@@ -1,10 +1,10 @@
-// import { NAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, COUNTRY, STATE, ADDRESS, CITY, ZIPCODE, 
+// import { NAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, COUNTRY, STATE, ADDRESS, CITY, ZIPCODE,
 //   MOBILE_NUMBER, DOB_DAY, DOB_MONTH, DOB_YEAR} from './test-data';
 // import { test, expect} from '@playwright/test';
 
 // test('register user', async ({ page }) => {
 //   await page.goto('https://www.automationexercise.com/');
-//   await page.locator('[href="/login"]').click();  
+//   await page.locator('[href="/login"]').click();
 //   await page.locator('[data-qa="signup-name"]').fill(NAME);
 //   await page.locator('[data-qa="signup-email"]').fill(EMAIL);
 //   await page.locator('[data-qa="signup-button"]').click();
@@ -13,7 +13,7 @@
 //   await page.locator('#months').selectOption(DOB_MONTH);
 //   await page.locator('#years').selectOption(DOB_YEAR);
 //   await page.locator('#first_name').fill(FIRST_NAME);
-//   await page.locator('#last_name').fill(LAST_NAME); 
+//   await page.locator('#last_name').fill(LAST_NAME);
 //   await page.locator('#address1').fill(ADDRESS);
 //   await page.locator('#country').selectOption(COUNTRY);
 //   await page.locator('#state').fill(STATE);
