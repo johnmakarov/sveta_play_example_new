@@ -1,6 +1,5 @@
 import type { Fixtures } from "@playwright/test";
 import { LoginPage } from "../pages/login-page";
-import type { ContextPagesFixture } from "./context-pages";
 
 export type ExercisePagesFixture = {
 	loginPage: LoginPage;
@@ -8,11 +7,9 @@ export type ExercisePagesFixture = {
 
 export const exercisePagesFixture: Fixtures<
 	ExercisePagesFixture,
-	ContextPagesFixture
 > = {
-	loginPage: async ({ contextPage }, use) => {
-		const loginPage = new LoginPage(contextPage);
-
+	loginPage: async ({ page }, use) => {
+		const loginPage = new LoginPage(page);
 		await use(loginPage);
 	},
 };
