@@ -1,9 +1,5 @@
 import { test as base, expect } from "@playwright/test";
 import {
-	type ContextPagesFixture,
-	contextPagesFixture,
-} from "../fixtures/context-pages";
-import {
 	type ExercisePagesFixture,
 	exercisePagesFixture,
 } from "../fixtures/exercise-pages";
@@ -24,14 +20,12 @@ import {
 	ZIPCODE,
 } from "./test-data";
 
-type AllFixtures = ContextPagesFixture &
-	ExercisePagesFixture & {
+type AllFixtures = ExercisePagesFixture & {
 		createUserViaApi: () => Promise<void>;
 		deleteUserViaApi: () => Promise<void>;
 	};
 
 export const loginTest = base.extend<AllFixtures>({
-	...contextPagesFixture,
 	...exercisePagesFixture,
 	createUserViaApi: async ({ request }, use) => {
 		const response = await request.post("/api/createAccount", {

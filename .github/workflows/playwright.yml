@@ -15,7 +15,7 @@ jobs:
     - name: Install dependencies
       run: npm i
     - name: Install Playwright Browsers
-      run: npm playwright install chromium --with-deps
+      run: npx playwright install chromium --with-deps
     - name: Run Playwright tests
       run: npx playwright test
     - name: get allure history
