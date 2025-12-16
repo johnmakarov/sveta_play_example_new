@@ -6,7 +6,6 @@ on:
     branches: [ main, master ]
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -19,25 +18,22 @@ jobs:
       run: npm playwright install chromium --with-deps
     - name: Run Playwright tests
       run: npx playwright test
-
     - name: get allure history
       uses: actions/checkout@v4
       if: always()
       with:
         ref: gh-pages
         path: gh-pages
-
     - name: allure report
-      uses: simple-elf/allure-report-action@v1.6
+      uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
         allure_results: allure-results
         allure_history: allure-history
         keep_reports: 20
-
     - name: publish allure 
       if: always()
-      uses: peaceiris/actions-gh-pages@v2
+      uses: peaceiris/actions-gh-pages@v3
       env:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
