@@ -1,5 +1,4 @@
 import { expect } from "@playwright/test";
-import { test } from "../tests";
 import {
 	CARD_NUMBER,
 	CVC,
@@ -7,8 +6,8 @@ import {
 	EXPIRY_YEAR,
 	NAME_ON_CARD,
 } from "../data/checkout-data";
-
 import { EMAIL, NAME, PASSWORD } from "../data/test-data";
+import { test } from "../tests";
 
 test("checkout product", async ({
 	page,
@@ -19,8 +18,9 @@ test("checkout product", async ({
 	await loginPage.login(EMAIL, PASSWORD);
 	await loginPage.verifySuccessfulLogin(NAME);
 
+	await loginPage.header.productsButton.click();
+
 	// TODO: Need to be refactored
-	await page.locator('[href="/products"]').click();
 	await page.locator('[href="/product_details/1"]').click();
 	await page.waitForURL("**/product_details/1");
 	await page.locator('[class="btn btn-default cart"]').click();

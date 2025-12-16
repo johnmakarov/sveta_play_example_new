@@ -19,7 +19,11 @@ import {
 } from "../data/test-data";
 import { test } from "../tests";
 
-test("update user via API", async ({ request, createUserViaApi, deleteUserViaApi }) => {
+test("update user via API", async ({
+	request,
+	createUserViaApi,
+	deleteUserViaApi,
+}) => {
 	const data = {
 		name: NAME,
 		email: EMAIL,

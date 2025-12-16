@@ -1,5 +1,5 @@
-import { test } from "../tests";
 import { EMAIL, NAME, PASSWORD } from "../data/test-data";
+import { test } from "../tests";
 
 test("login user", async ({
 	loginPage,
