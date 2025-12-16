@@ -1,6 +1,6 @@
-import { Fixtures } from "@playwright/test";
+import type { Fixtures } from "@playwright/test";
 import { LoginPage } from "../pages/login-page";
-import { ContextPagesFixture } from "./context-pages";
+import type { ContextPagesFixture } from "./context-pages";
 
 export type ExercisePagesFixture = {
 	loginPage: LoginPage;

@@ -1,4 +1,4 @@
-import { NAME, EMAIL, PASSWORD } from "./test-data";
+import { EMAIL, NAME, PASSWORD } from "./test-data";
 import { loginTest } from "./tests";
 
 loginTest(

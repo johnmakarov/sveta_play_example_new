@@ -1,4 +1,4 @@
-import { Fixtures, Page, PlaywrightTestArgs } from "@playwright/test";
+import type { Fixtures, Page, PlaywrightTestArgs } from "@playwright/test";
 import { mockStaticRecourses } from "../utils/mocks/static-mock";
 
 export type ContextPagesFixture = {

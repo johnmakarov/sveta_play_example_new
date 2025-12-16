@@ -1,4 +1,4 @@
-import { LocatorContext } from "../types/page-factory/component";
+import type { LocatorContext } from "../types/page-factory/component";
 
 export const locatorTemplateFormat = (
 	locator: string,

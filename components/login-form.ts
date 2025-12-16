@@ -1,6 +1,6 @@
-import { Page } from "@playwright/test";
-import { Input } from "../page-factory/input";
+import type { Page } from "@playwright/test";
 import { Button } from "../page-factory/button";
+import { Input } from "../page-factory/input";
 
 type UserCredentials = {
 	email: string;

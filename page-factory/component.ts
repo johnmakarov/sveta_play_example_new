@@ -1,5 +1,8 @@
-import { expect, Locator, Page, test } from "@playwright/test";
-import { ComponentProps, LocatorProps } from "../types/page-factory/component";
+import { expect, type Locator, type Page, test } from "@playwright/test";
+import type {
+	ComponentProps,
+	LocatorProps,
+} from "../types/page-factory/component";
 import { capitalizeFirstLetter } from "../utils/generic";
 import { locatorTemplateFormat } from "../utils/page-factory";
 

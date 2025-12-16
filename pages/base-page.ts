@@ -1,6 +1,6 @@
-import test, { Page } from "@playwright/test";
-import { LoginForm } from "../components/login-form";
+import test, { type Page } from "@playwright/test";
 import { Header } from "../components/header";
+import { LoginForm } from "../components/login-form";
 
 export class BasePage {
 	readonly header: Header;

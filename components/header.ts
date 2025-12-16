@@ -1,6 +1,6 @@
-import { Page } from "@playwright/test";
-import { Button } from "../page-factory/button";
+import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { Button } from "../page-factory/button";
 
 export class Header {
 	public loginButton: Button;

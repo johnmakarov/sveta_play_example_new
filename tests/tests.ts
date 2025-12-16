@@ -1,34 +1,33 @@
-import { test as base } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
 import {
-	ContextPagesFixture,
+	type ContextPagesFixture,
 	contextPagesFixture,
 } from "../fixtures/context-pages";
 import {
-	ExercisePagesFixture,
+	type ExercisePagesFixture,
 	exercisePagesFixture,
 } from "../fixtures/exercise-pages";
 import {
-	NAME,
-	FIRST_NAME,
-	LAST_NAME,
-	EMAIL,
-	PASSWORD,
-	COUNTRY,
-	STATE,
 	ADDRESS,
 	CITY,
-	ZIPCODE,
-	MOBILE_NUMBER,
+	COUNTRY,
 	DOB_DAY,
 	DOB_MONTH,
 	DOB_YEAR,
+	EMAIL,
+	FIRST_NAME,
+	LAST_NAME,
+	MOBILE_NUMBER,
+	NAME,
+	PASSWORD,
+	STATE,
+	ZIPCODE,
 } from "./test-data";
-import { expect } from "@playwright/test";
 
 type AllFixtures = ContextPagesFixture &
 	ExercisePagesFixture & {
-		createUserViaApi: void;
-		deleteUserViaApi: void;
+		createUserViaApi: () => Promise<void>;
+		deleteUserViaApi: () => Promise<void>;
 	};
 
 export const loginTest = base.extend<AllFixtures>({
