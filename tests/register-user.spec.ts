@@ -1,32 +1,39 @@
-// import { NAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, COUNTRY, STATE, ADDRESS, CITY, ZIPCODE,
-//   MOBILE_NUMBER, DOB_DAY, DOB_MONTH, DOB_YEAR} from './test-data';
-// import { test, expect} from '@playwright/test';
+import {
+	ADDRESS,
+	CITY,
+	COUNTRY,
+	DOB_DAY,
+	DOB_MONTH,
+	DOB_YEAR,
+	EMAIL,
+	FIRST_NAME,
+	LAST_NAME,
+	MOBILE_NUMBER,
+	NAME,
+	PASSWORD,
+	STATE,
+	ZIPCODE,
+} from "./test-data";
+import { test } from "./tests";
 
-// test('register user', async ({ page }) => {
-//   await page.goto('https://www.automationexercise.com/');
-//   await page.locator('[href="/login"]').click();
-//   await page.locator('[data-qa="signup-name"]').fill(NAME);
-//   await page.locator('[data-qa="signup-email"]').fill(EMAIL);
-//   await page.locator('[data-qa="signup-button"]').click();
-//   await page.locator('#password').fill(PASSWORD);
-//   await page.locator('#days').selectOption(DOB_DAY);
-//   await page.locator('#months').selectOption(DOB_MONTH);
-//   await page.locator('#years').selectOption(DOB_YEAR);
-//   await page.locator('#first_name').fill(FIRST_NAME);
-//   await page.locator('#last_name').fill(LAST_NAME);
-//   await page.locator('#address1').fill(ADDRESS);
-//   await page.locator('#country').selectOption(COUNTRY);
-//   await page.locator('#state').fill(STATE);
-//   await page.locator('#city').fill(CITY);
-//   await page.locator('#zipcode').fill(ZIPCODE);
-//   await page.locator('#mobile_number').fill(MOBILE_NUMBER);
-//   await page.locator('[data-qa="create-account"]').click();
-//   await expect(page.locator('[data-qa="account-created"]')).toContainText('Account Created!');
-//   await page.locator('[data-qa="continue-button"]').click();
-//   await expect(page.locator('#header')).toContainText(`Logged in as ${NAME}`);
-
-//   await page.locator('[href="/delete_account"]').click();
-//   await expect(page.locator('[data-qa="account-deleted"]')).toContainText('Account Deleted!');
-//   await page.locator('[data-qa="continue-button"]').click();
-//   await expect(page.locator('[href="/login"]')).toContainText('Signup / Login');
-// });
+test("register user", async ({ registerPage, deleteUserViaApi }) => {
+	await registerPage.visit("/login");
+	await registerPage.signUpForm.fillSignupForm({ name: NAME, email: EMAIL });
+	await registerPage.signUpForm.fillRegistrationForm({
+		password: PASSWORD,
+		day: DOB_DAY,
+		month: DOB_MONTH,
+		year: DOB_YEAR,
+		firstName: FIRST_NAME,
+		lastName: LAST_NAME,
+		address: ADDRESS,
+		country: COUNTRY,
+		state: STATE,
+		city: CITY,
+		zipcode: ZIPCODE,
+		mobileNumber: MOBILE_NUMBER,
+	});
+	await registerPage.signUpForm.createAccount();
+	await registerPage.accountCreated.verifyAccountCreated();
+	await registerPage.accountCreated.clickContinue();
+});

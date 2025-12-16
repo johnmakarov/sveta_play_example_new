@@ -13,12 +13,19 @@ jobs:
     - uses: actions/setup-node@v6
       with:
         node-version: 24
+
     - name: Install dependencies
       run: npm i
+
+    - name: Biome
+      run: npx biome check
+
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
+
     - name: Run Playwright tests
       run: npx playwright test
+
     - name: Load test report history
       uses: actions/checkout@v3
       if: always()
