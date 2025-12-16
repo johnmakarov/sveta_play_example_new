@@ -21,11 +21,11 @@ import {
 } from "./test-data";
 
 type AllFixtures = ExercisePagesFixture & {
-		createUserViaApi: () => Promise<void>;
-		deleteUserViaApi: () => Promise<void>;
-	};
+	createUserViaApi: () => Promise<void>;
+	deleteUserViaApi: () => Promise<void>;
+};
 
-export const loginTest = base.extend<AllFixtures>({
+export const test = base.extend<AllFixtures>({
 	...exercisePagesFixture,
 	createUserViaApi: async ({ request }, use) => {
 		const response = await request.post("/api/createAccount", {

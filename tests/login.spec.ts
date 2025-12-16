@@ -1,10 +1,11 @@
 import { EMAIL, NAME, PASSWORD } from "./test-data";
-import { loginTest } from "./tests";
+import { test } from "./tests";
 
-loginTest(
-	"login user",
-	async ({ loginPage, createUserViaApi, deleteUserViaApi }) => {
-		await loginPage.login(EMAIL, PASSWORD);
-		await loginPage.verifySuccessfulLogin(NAME);
-	},
-);
+test("login user", async ({
+	loginPage,
+	createUserViaApi,
+	deleteUserViaApi,
+}) => {
+	await loginPage.login(EMAIL, PASSWORD);
+	await loginPage.verifySuccessfulLogin(NAME);
+});
