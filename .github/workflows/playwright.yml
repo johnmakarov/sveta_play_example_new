@@ -19,7 +19,7 @@ jobs:
       run: npm playwright install chromium --with-deps
     - name: Run Playwright tests
       run: npx playwright test
-      
+
     - name: get allure history
       uses: actions/checkout@v4
       if: always()
@@ -39,7 +39,7 @@ jobs:
       if: always()
       uses: peaceiris/actions-gh-pages@v2
       env:
-        PERSONAL_TOKEN: ${{ secrets.MY_TOKEN }}
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: allure-history
     
